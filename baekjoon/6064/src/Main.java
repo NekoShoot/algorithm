@@ -22,7 +22,25 @@ public class Main {
 			int[] MGrid = new int[M];
 			int[] NGrid = new int[N];
 			// "x,y"로 저장하기 위해서 string 배열 생성;
-			int minMultiple = minMultiple(M, N);				
+			
+			
+			// M, N의 최소 공배수 구하기
+			//int minMultiple = minMultiple(M, N);
+			
+			int maxDivider = 0;
+			
+			// 최대 공약수
+			for (int i = 1; i <= M && i <= N; i++) {
+				if (M % i == 0 && N % i == 0) {
+					maxDivider = i;
+				}
+			}
+			
+			// 최소 공배수는 두 수를 곱하고 최대공약수를 나누면 나옴
+			int minMultiple = (M * N) / maxDivider;			
+			
+			
+			
 			String[] calendar = new String[minMultiple];
 			
 			// 값 채우기
@@ -33,24 +51,21 @@ public class Main {
 			for (int i = 0; i < N; i++) {
 				NGrid[i] = i + 1;
 			}
-			
-			  
-			// 반복 돌면서 calendar의 각 순서에 맞게 M 채우기
+						  
+			// 반복 돌면서 calendar의 각 순서에 맞게 M값 채우기
 			for (int i = 0; i < calendar.length; i++) {
 				// M > i -> calendar[i] = MGrid[i]
 				if (M > i) {
 					calendar[i] = MGrid[i] + ",";
-				} else if (M <= i) {
-					
+				} else if (M <= i) { // i가 M보다 크거나 같으면 i를 1부터 다시					
 					int idxM = (i % M);
 					calendar[i] = MGrid[idxM] + ",";
 				}
 				
-				// 반복 돌면서 calendar의 각 순서에 맞게 N 채우기
+				// 반복 돌면서 calendar의 각 순서에 맞게 N값 채우기
 				if (N > i) {
 					calendar[i] += NGrid[i] + "";
-				} else if (M <= i) {
-					
+				} else if (M <= i) {					
 					int idxN = (i % N);
 					calendar[i] += NGrid[idxN] + "";
 				}			
@@ -59,17 +74,17 @@ public class Main {
 			
 			// calendar 배열에서 x,y가 들어있는 값 찾기
 			String target = x + "," + y;
-			// result가 없을 경우 default 값 -1
-			int result = -1;
+			// k(==result)가 없을 경우 default 값 -1
+			int k = -1;
 			
 			for (int i = 0; i < calendar.length; i ++) {
 				if (calendar[i].equals(target)) {
 					// result 해는 index 보다 1 크므로 1을 추가로 더해줌
-					result += (i + 1) + 1;
+					k += (i + 1) + 1;
 				}
 			}
 			
-			System.out.println(result);			
+			System.out.println(k);			
 						
 		}
 	}
