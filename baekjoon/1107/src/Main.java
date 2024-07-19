@@ -20,7 +20,7 @@ public class Main {
 		
 			int target = sc.nextInt();
 			
-			// target == 현재 채널 답으로 0 도출하고 함수 종료
+			// 예외 처리: target == 현재 채널 답으로 0 도출하고 함수 종료
 			if(target == 100) {
 				System.out.println(0);
 				return;
@@ -31,13 +31,12 @@ public class Main {
 			
 			int cntBroken = sc.nextInt();
 			
-			// 예외 처리
-			// cntBroken == 0 이면 타겟 채널 길이 개수만 구해서 반환
+			// 예외 처리: cntBroken == 0 이면 타겟 채널 길이 개수만 구해서 반환
 			if(cntBroken == 0) {
 				sum = (int) (Math.log10(target) + 1);
 				System.out.println(sum);
 				return;
-			} else if(cntBroken == 10) { // 모든 버튼이 고장이면 abs(target - 100)만 구해서 반환
+			} else if(cntBroken == 10) { // 모든 버튼이 고장이면 abs(target - 100) 구해서 반환
 				sum = Math.abs(target - 100);
 				System.out.println(sum);
 				return;
@@ -78,34 +77,161 @@ public class Main {
 				
 			}						
 			
-			// target 값을 가공할 다른 변수 생성
-			int targetNumber = target;
+			// target 값을 가공할 변수 생성
+			int targetNumber = target;			
+	
+			// 1-b. targetNumber가 tenDigit(10의 그 자릿수 제곱)의 배수가 아닌 경우
+			int nearest = 0;	
+			int digits = targetNumber == 0 ? 1 : (int) (Math.log10(targetNumber) + 1); //자릿수
+			int digitNumber = digits; // 자릿수 가공할 변수
 			
-			// 1-b. targetNumber의 가장 높은 자리수의 숫자와 가장 가까운(뺐을 때 절대값이 가장 적은) 숫자를 배열에서 탐색
-			int nearest = 0;			
+			// 최소값들을 저장할 변수 생성
+			int absMin = targetNumber;
+			int tmpMin = 0;
 			
-			
-			// 1-b-1. targetNumber의 자릿수를 세고 저장
-			int digits = targetNumber == 0 ? 1 : (int) (Math.log10(targetNumber) + 1);
-			int digitNumber = digits;
-			
-						int min = 10; // 0~9 사이 값 중 차이가 가장 큰 것이 9이기 때문에 
-			int minIdx = -1; // Idx 가장 작은 값은 0이기 때문에
-			
-			for(int i = 0; i < digits; i++) {				
+out:		for (int k = 0; k < digits; k++) {
 				int tenDigit = (int) Math.pow(10, (digitNumber - 1));	
 				int digitCut = targetNumber / tenDigit; // 가장 높은 자릿수 값
+							
+				// 1-b를 두 가지로 쪼개서 탐색
+				
+				
+				// 1-b-1.a digitCut이 ableButton에 있으면 
+				boolean isAble = false;
+				for(int i = 0; i < ableButtons.length; i++) {
+					if(digitCut == ableButtons[i]) {
+						isAble = true;
+						// 값 저장하고 targetNumber에서 ableButtons[i] * tenDigit만큼 빼주기
+						nearest += ableButtons[i] * tenDigit;
+						targetNumber -= ableButtons[i] * tenDigit;
+						digitNumber -= 1;													
+						
+						// targetNumber가 tenDigit의 배수였어서 빼고 났더니 0이 된 경우 nearest 확정
+						// 이 아니었다! 제일 높은게 able, tenDigit 배수인데 0이 없으면 안댐!
+						if(targetNumber == 0 && digitNumber > 1) {
+							int tenDivider;
+							for(int m = 1; m < (digitNumber + 1); m++) {
+								tenDivider = (int) Math.pow(10, m);									
+								nearest += ableButtons[0] * (tenDigit / tenDivider);								
+							}
+							break out;
+						}	
+												
+					} else {
+						isAble = false;
+					}
+					
+				}		
+				
+				
+
+				// 1-b-1.b digitCut이 ableButton에 없으면 전체 값의 차의 절대값 비교
+				
+				// 예외 처리: 1000의 자리수 비교에서 0과 1이 고장일 때, target보다 낮은 근삿값과 높은 근삿값의 거리가 같을 때
+				// e.g. 1555(0,1,9고장) <- 2222와 888은 똑같이 667거리 차이지만 누르는 버튼 횟수는 888이 1개 더 낮음
+				boolean isOutlier = brokenButtons[0] == 0 
+									&& brokenButtons[1] == 1 
+									&& digitCut == 1; 									
+				
+				for(int j = 0; j < ableButtons.length; j++) {
+					if(!isAble) {
+						
+						int tmp = 0;
+						int tenDivider = 0;
+
+						if(isOutlier && digitNumber > 1) {						
+							
+							for(int m = 1; m < digitNumber; m++) {
+								tenDivider = (int) Math.pow(10, m);
+								tmp += ableButtons[(10 - cntBroken) - 1] * (tenDigit / tenDivider);
+							}
+							
+							int sub = Math.abs(targetNumber - tmp);
+							if (sub < absMin) {
+								absMin = sub;
+								tmpMin = tmp;
+							}
+						}
+						
+						// 가장 높은 자릿수 값보다 ableButtons[j]가 작을 때
+						if(ableButtons[j] < digitCut) {							
+							tmp = ableButtons[j] * tenDigit;
+							
+							if(digitNumber > 1) {
+								for(int m = 1; m < digitNumber; m++) {
+									tenDivider = (int) Math.pow(10, m);
+									tmp += ableButtons[(10 - cntBroken) - 1] * (tenDigit / tenDivider);									
+								}
+							}
+							
+							int sub = Math.abs(targetNumber - tmp);							
+							if(sub < absMin) { 
+								absMin = sub;								
+								tmpMin = tmp;						
+							}
+							
+							
+						} else { // 가장 높은 자릿수 값보다 ableButtons[j]가 클 때
+							tmp = ableButtons[j] * tenDigit;
+							
+							if( digitNumber > 1) {
+								for(int m = 1; m < digitNumber; m++) {
+									tenDivider = (int) Math.pow(10, m);
+									tmp += ableButtons[0] * (tenDigit / tenDivider);
+								}
+							}
+							
+							int sub = Math.abs(targetNumber - tmp);
+							if(sub < absMin) { 
+								absMin = sub;
+								tmpMin = tmp;
+							}
+							
+						}					
+											
+					}
+				}			
+				
 
 				
-				
-				for (int j = 0; j < ableButtons.length; j++) {
-					if(digitCut == ableButtons[j]) { // 가장 높은 자릿수가 ableButton에 있으면 -> 각 자릿수로 비교	
+			}								
+			
+			
+			// 이제 nearest에, target에 가장 가까운 근삿값이 저장돼있음!
+
+			nearest += tmpMin;
+
+			// sum에 nearest의 자릿수를 더하고
+			int digitOfNearest = nearest == 0 ? 1 : (int) (Math.log10(nearest) + 1);				
+					
+			sum += digitOfNearest;
+			
+			// abs(target - nearest)를 구해서 sum에 더하면 끝!
+			int finalSub = Math.abs(target - nearest);
+			sum += finalSub;		
+			System.out.println("");
+			System.out.println(sum);		
+	}
+	
+	
+
+
+}					
 						
-					} else { // brokenButton에 있으면 -> tenDigit 곱해서 절대값으로 비교
-						
-					}
-				}
-				
+			
+//			for(int i = 0; i < digits; i++) {				
+//
+//
+//				
+//				
+//				for (int j = 0; j < ableButtons.length; j++) {
+//					if(digitCut == ableButtons[j]) { // 가장 높은 자릿수가 ableButton에 있으면 -> 각 자릿수로 비교	
+//						
+//					} else { // brokenButton에 있으면 -> tenDigit 곱해서 절대값으로 비교
+//						
+//					}
+//				}
+//	
 							
 				
 				
@@ -116,15 +242,15 @@ public class Main {
 
 				
 				// 1-b-3. 해당하는 숫자(자릿수 곱한 값)을 저장하고 targetNumber에서 빼기
-				nearest += minIdx * tenDigit;				
-				targetNumber = min;
-				digitNumber -= 1;
-				// minIdx 초기화
-				minIdx = -1;
-			}
-			// 1-b-4. 그 후 1~3 반복
-			System.out.println(nearest);
-			
+//				nearest += minIdx * tenDigit;				
+//				targetNumber = min;
+//				digitNumber -= 1;
+//				// minIdx 초기화
+//				minIdx = -1;
+//			}
+//			// 1-b-4. 그 후 1~3 반복
+//			System.out.println(nearest);
+
 			
 			
 			
@@ -185,9 +311,4 @@ public class Main {
 			
 			System.out.println(sum);
 			*/
-		}
-		
-				
 
-
-}

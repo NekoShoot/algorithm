@@ -40,8 +40,10 @@ public class Main {
 			int minMultiple = (M * N) / maxDivider;			
 			
 			
-			
+			// >>>>>>>>>>>>>>>>>> input이 수 만 단위라 배열로 풀면 터짐 ㅋㅋㅋㅋㅋㅋ
 			String[] calendar = new String[minMultiple];
+			//>>>>>>>>>>>>>>>>>>> if랑 조건 연산자로 푸는 게 맞는 거 같다..
+			
 			
 			// 값 채우기
 			for (int i = 0; i < M; i++) {
@@ -65,7 +67,7 @@ public class Main {
 				// 반복 돌면서 calendar의 각 순서에 맞게 N값 채우기
 				if (N > i) {
 					calendar[i] += NGrid[i] + "";
-				} else if (M <= i) {					
+				} else if (N <= i) {					
 					int idxN = (i % N);
 					calendar[i] += NGrid[idxN] + "";
 				}			
