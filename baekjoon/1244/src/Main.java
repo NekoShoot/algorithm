@@ -68,8 +68,9 @@ out:	for(int i = 0; i < switchCols; i++) {
 					int multiplied = j * targetSwitch;					
 					// 스위치 위치를 rows, cols로 가공		
 					// 인덱스라 위에 switchRows,Cols와는 다름!
+					// 1(0, 0) 20(0, 19) 21(1, 0) 99(4, 18) 100(4, 19)
 					int targetRows = ((multiplied - 1) / 20);
-					int targetCols = multiplied <= 20 ? multiplied - 1 : (multiplied - (20 * (i + 1)) - 1);
+					int targetCols = multiplied <= 20 ? multiplied - 1 : (multiplied - 1) % 20;
 																			
 					// 0이면 1로 1이면 0으로
 					if(switchArr[targetRows][targetCols] == 0) switchArr[targetRows][targetCols] = 1;	
@@ -85,7 +86,7 @@ out:	for(int i = 0; i < switchCols; i++) {
 				
 				// 1(0, 0) 20(0, 19) 21(1, 0) 99(4, 18) 100(4, 19)
 				int targetRows = ((targetSwitch - 1) / 20);
-				int targetCols = targetSwitch < 20 ? targetSwitch - 1 : (targetSwitch - 1 % 20);				
+				int targetCols = targetSwitch <= 20 ? targetSwitch - 1 : (targetSwitch - 1) % 20;				
 								
 				System.out.println("여자 동작 중");
 				System.out.println(targetRows + ", " + targetCols);
@@ -128,6 +129,7 @@ out:	for(int i = 0; i < switchCols; i++) {
 												
 						break;
 					}
+					
 				}
 				
 				
