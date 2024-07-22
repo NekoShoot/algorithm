@@ -5,7 +5,105 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		System.setIn(new FileInputStream("./input.txt"));
+		System.setIn(new FileInputStream("./input.txt"));	
+		
+		//!!!!!!!!!!!!!! 출력만 줄바꿈이 있고 입력은 그냥 한 줄로 들어온다!!
+		// 1차원 배열로 저장하고 돌리면 되는 쉬운 문제였음..
+		
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		
+		// 1차원 배열에 스위치 저장
+		int[] switchArr = new int[n];
+		
+		for(int i = 0; i < n; i++) {
+			switchArr[i] = sc.nextInt();
+		}
+		
+		int studentNum = sc.nextInt();
+		// 학생 수 만큼 시행 반복
+		for(int i = 0; i < studentNum; i++) {
+			int gender = sc.nextInt();
+			
+			// case1. 남성일 경우 (gender == 1)
+			if(gender == 1) {
+				int target = sc.nextInt();				
+				int switchControlNum = n / target;				
+				
+				for(int j = 1; j < switchControlNum + 1; j++) {
+					int multiplied = target * j;					
+					int targets = switchArr[multiplied - 1];
+					
+					if(targets == 0) switchArr[multiplied - 1] = 1;
+						else switchArr[multiplied - 1] = 0; 					
+				}
+				
+				System.out.println("남성이 수행한 후의 스위치 상황은");
+				System.out.println(Arrays.toString(switchArr));
+				
+			} else { // case2. 여성일 경우 (gender == 2)
+				int target = sc.nextInt();
+				int targetSwitch = switchArr[target -1];
+				
+				if(target == 1 || target == n) { // target이 가장 끝 스위치면 즉시 종료
+					if(targetSwitch == 0) switchArr[target - 1] = 1;
+							else switchArr[target - 1] = 0;
+					
+				}
+				
+				int cnt = 1;
+				while (true) {
+					
+					int moveBack =switchArr[(target - 1) - cnt];
+					int moveForward = switchArr[(target - 1) + cnt];
+					
+					// 대칭이 아닐 경우
+					if(moveBack != moveForward) {
+						if(targetSwitch == 0) switchArr[target - 1] = 1;
+							else switchArr[target - 1] = 0;
+						
+						break;
+					} else { // 대칭일 경우
+						// 그 중에서 이전 칸이나 다음 칸이 끝 칸일 경우 그 사이 칸 다 바꾸고 종료
+						if(moveBack == 1 || moveForward == n) {
+							// moveBack ~ moveForward 사이에 있는 스위치 개수 == 2*cnt + 1
+							int switchesBetween = (2 * cnt) + 1;
+							
+							for(int j = 0; j < switchesBetween; j++) {
+								int targetIdxes = (target - 1) - cnt + j;
+								
+								if(switchArr[targetIdxes] == 0) switchArr[targetIdxes] = 1;
+									else switchArr[targetIdxes] = 0;
+								
+								break;
+							}														
+						
+						}
+						
+						cnt++;	
+						continue;
+						
+					}
+					
+				}
+				
+				System.out.println("여성이 수행한 후의 스위치 상황은");
+				System.out.println(Arrays.toString(switchArr));
+			}
+
+			
+			
+			
+			
+		}
+		
+		System.out.println("전부 수행한 후의 스위치 상황은");
+		System.out.println(Arrays.toString(switchArr));
+		
+	}
+
+}			
+				
 		/* 알고리즘 구상
 		 * 핵심 조건: 학생 성별이 남성이냐 여성이냐
 		 * 스위치 개수 n <= 100
@@ -26,11 +124,10 @@ public class Main {
 		 * (반복문을 돌릴 때 반복 횟수를 저장할 값을 만들기 cnt = 1; -> 
 		 * 이걸 활용해서 인덱스 조절해서 탐색하고 -> 
 		 * 멈췄을 때 횟수를 확인해서 y-1-cnt ~ y-1+cnt 범위 사이에 있는 스위치들 상태 바꾸기)
-		 */ 		  
+		 */ 	
 		
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
 		
+/*
 		// 길이라 인덱스가 아님!!!
 		int switchRows = n < 20 ? n : 20;
 		// 20이면 1줄, 21이면 2줄, 99면 5줄, 100이면 5줄		
@@ -160,8 +257,4 @@ out:	for(int i = 0; i < switchCols; i++) {
 			}
 		}		
 
-
-
-	}
-
-}
+*/
