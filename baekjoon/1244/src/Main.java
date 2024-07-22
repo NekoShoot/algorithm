@@ -11,7 +11,9 @@ public class Main {
 		// 1차원 배열로 저장하고 돌리면 되는 쉬운 문제였음..
 		
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		StringBuilder sb = new StringBuilder();
+		
+		int n = sc.nextInt();		
 		
 		// 1차원 배열에 스위치 저장
 		int[] switchArr = new int[n];
@@ -21,6 +23,7 @@ public class Main {
 		}
 		
 		int studentNum = sc.nextInt();
+		
 		// 학생 수 만큼 시행 반복
 		for(int i = 0; i < studentNum; i++) {
 			int gender = sc.nextInt();
@@ -28,7 +31,7 @@ public class Main {
 			// case1. 남성일 경우 (gender == 1)
 			if(gender == 1) {
 				int target = sc.nextInt();				
-				int switchControlNum = n / target;				
+				int switchControlNum = n / target;		
 				
 				for(int j = 1; j < switchControlNum + 1; j++) {
 					int multiplied = target * j;					
@@ -38,45 +41,61 @@ public class Main {
 						else switchArr[multiplied - 1] = 0; 					
 				}
 				
-				System.out.println("남성이 수행한 후의 스위치 상황은");
-				System.out.println(Arrays.toString(switchArr));
+//				System.out.println("남성이 수행한 후의 스위치 상황은");
+//				System.out.println(Arrays.toString(switchArr));
 				
 			} else { // case2. 여성일 경우 (gender == 2)
 				int target = sc.nextInt();
 				int targetSwitch = switchArr[target -1];
 				
+				
 				if(target == 1 || target == n) { // target이 가장 끝 스위치면 즉시 종료
 					if(targetSwitch == 0) switchArr[target - 1] = 1;
-							else switchArr[target - 1] = 0;
-					
+						else switchArr[target - 1] = 0;
+					continue;
 				}
 				
 				int cnt = 1;
-				while (true) {
+out:			while (true) {
 					
 					int moveBack =switchArr[(target - 1) - cnt];
 					int moveForward = switchArr[(target - 1) + cnt];
+					int switchesBetween;
 					
 					// 대칭이 아닐 경우
 					if(moveBack != moveForward) {
-						if(targetSwitch == 0) switchArr[target - 1] = 1;
-							else switchArr[target - 1] = 0;
+						// 그 중에서 이전 칸이나 다음 칸이 끝 칸일 경우 그 이전까지의 칸 다 바꾸고 종료
+						// moveBack ~ moveForward 사이에 있는 스위치 개수 == (2 * (cnt-1)) + 1							
+						switchesBetween  = (2 * (cnt-1)) + 1 ;
 						
-						break;
+						for(int j = 0; j < switchesBetween; j++) {
+							int targetIdxes = (target - 1) - (cnt-1) + j;	
+							
+							if(switchArr[targetIdxes] == 0) switchArr[targetIdxes] = 1;
+								else switchArr[targetIdxes] = 0;						
+						}
+						
+//						System.out.println("여성이 비대칭에서 수행한 후의 스위치 상황은");
+//						System.out.println(Arrays.toString(switchArr));
+						break out;
+						
 					} else { // 대칭일 경우
 						// 그 중에서 이전 칸이나 다음 칸이 끝 칸일 경우 그 사이 칸 다 바꾸고 종료
-						if(moveBack == 1 || moveForward == n) {
-							// moveBack ~ moveForward 사이에 있는 스위치 개수 == 2*cnt + 1
-							int switchesBetween = (2 * cnt) + 1;
+						if((target - 1) - cnt == 0 || (target - 1) + cnt == n - 1) {
+							// moveBack ~ moveForward 사이에 있는 스위치 개수 == 2*cnt + 1							
+							switchesBetween  = (2 * cnt) + 1;
 							
 							for(int j = 0; j < switchesBetween; j++) {
 								int targetIdxes = (target - 1) - cnt + j;
 								
 								if(switchArr[targetIdxes] == 0) switchArr[targetIdxes] = 1;
 									else switchArr[targetIdxes] = 0;
-								
-								break;
-							}														
+							}		
+							
+//							System.out.println("여성이 대칭에서 수행한 후의 스위치 상황은");
+//							System.out.println(Arrays.toString(switchArr));
+							
+							break out;
 						
 						}
 						
@@ -85,20 +104,31 @@ public class Main {
 						
 					}
 					
-				}
-				
-				System.out.println("여성이 수행한 후의 스위치 상황은");
-				System.out.println(Arrays.toString(switchArr));
-			}
+				}			
 
-			
+			}			
 			
 			
 			
 		}
 		
-		System.out.println("전부 수행한 후의 스위치 상황은");
-		System.out.println(Arrays.toString(switchArr));
+//		System.out.println("전부 수행한 후의 스위치 상황은");
+//		System.out.println(Arrays.toString(switchArr));
+		
+		// 20개 단위로 줄 바꿈 해줘야됨
+		for(int i = 0; i < n; i++) {
+			if((i+1) % 20 == 0 || n % 20 != 0) {
+				sb.append(switchArr[i] + "");
+				sb.append("\n");
+			} else if(i == n-1) {
+				sb.append(switchArr[i] + "");
+			} else {
+				sb.append(switchArr[i] + " ");
+			}
+			
+		}
+		
+		System.out.println(sb);
 		
 	}
 
