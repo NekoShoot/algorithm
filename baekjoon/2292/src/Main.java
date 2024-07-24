@@ -29,7 +29,9 @@ public class Main {
 		 */
 		
 		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();		
+		int N = sc.nextInt();	
+		
+		if(N == 1) System.out.println(1);
 		
 		// 일반항을 구하기 위해 6의 배수의 합을 저장할 값 생성
 		// 1번: 1부터 시작, 2번항부터 6씩 더해짐
