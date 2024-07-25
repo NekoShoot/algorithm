@@ -64,12 +64,11 @@ public class Main {
 				} else if(j <= (i/j) && (i % j) == 0) { // 그 이전에 나누어 떨어지는 약수면 cnt++	
 						cnt++;			
 					}
-			}			
-			System.out.println("cnt는 = " + cnt);
+			}		
 			result += cnt;
 		}
 		
-		System.out.println("result는 = " +result);
+		System.out.println(result);
 		
 	}
 
