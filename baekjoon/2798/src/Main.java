@@ -68,7 +68,7 @@ public class Main {
 		// 최종 합을 저장할 변수 생성
 		int sum = 0;
 		
-out:	for(int i = 0; i < N; i++) {
+		for(int i = 0; i < N; i++) {
 			for(int j = i+1; j < N; j++) {
 				for(int k = j+1; k < N; k++) {
 					int tmpSum = cardList[i] + cardList[j] + cardList[k];
