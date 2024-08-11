@@ -1,0 +1,218 @@
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+d.toUTCString();
+	document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1);
+		if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+	}
+	return "";
+}
+
+ function serialize (form) {
+	if (!form || form.nodeName !== "FORM") {
+			return;
+	}
+	var i, j, q = [];
+	for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+			if (form.elements[i].name === "") {
+					continue;
+			}
+			switch (form.elements[i].nodeName) {
+			case 'INPUT':
+					switch (form.elements[i].type) {
+					case 'text':
+					case 'hidden':
+					case 'password':
+					case 'button':
+					case 'reset':
+					case 'submit':
+							q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+							break;
+					case 'checkbox':
+					case 'radio':
+							if (form.elements[i].checked) {
+									q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+							}											   
+							break;
+					}
+					break;
+					case 'file':
+					break; 
+			case 'TEXTAREA':
+					q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+					break;
+			case 'SELECT':
+					switch (form.elements[i].type) {
+					case 'select-one':
+							q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+							break;
+					case 'select-multiple':
+							for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+									if (form.elements[i].options[j].selected) {
+											q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].options[j].value));
+									}
+							}
+							break;
+					}
+					break;
+			case 'BUTTON':
+					switch (form.elements[i].type) {
+					case 'reset':
+					case 'submit':
+					case 'button':
+							q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+							break;
+					}
+					break;
+			}
+	}
+	return q.join("&");
+}
+
+function formDataToObject(form) {
+	if (!form || form.nodeName !== "FORM") {
+		return;
+	}
+	var i, j, r = {};
+	for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+		var n = form.elements[i].name;
+
+		if (form.elements[i].name === "") {
+			continue;
+		}
+		switch (form.elements[i].nodeName) {
+		case 'INPUT':
+			switch (form.elements[i].type) {
+				case 'text':
+				case 'hidden':
+				case 'password':
+				case 'button':
+				case 'reset':
+				case 'submit':
+					r[n] = form.elements[i].value;
+					break;
+				case 'checkbox':
+				case 'radio':
+					if (form.elements[i].checked)
+						r[n] = true;
+					else
+						r[n] = false;
+					break;
+				case 'file':
+					break;
+			}
+			break;		   
+		case 'TEXTAREA':
+			r[n] = form.elements[i].value;
+			break;
+		case 'SELECT':
+			switch (form.elements[i].type) {
+				case 'select-one':
+					r[n] = form.elements[i].value;
+					break;
+				case 'select-multiple':
+					r[n] = "";
+					for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+						if (form.elements[i].options[j].selected) {
+							r[n] += form.elements[i].options[j].value + ",";
+						}
+					}
+					r[n] = r[n].substr(0, r[n].length-1);
+					break;
+			}
+			break;
+		case 'BUTTON':
+			switch (form.elements[i].type) {
+				case 'reset':
+				case 'submit':
+				case 'button':
+					r[n] = form.elements[i].value;
+					break;
+				}
+			break;
+		}
+	}
+	return r;
+}
+
+function applyDataToForm(dataObj, form) {
+	if (!dataObj || !form || form.nodeName !== "FORM") {
+		return;
+	}
+
+	var i, j, r = dataObj;
+
+	for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+		var n = form.elements[i].name;
+		
+		if (n in dataObj) {
+			switch (form.elements[i].nodeName) {
+				case 'INPUT':
+					switch (form.elements[i].type) {
+						case 'text':
+						case 'hidden':
+						case 'password':
+						case 'button':
+						case 'reset':
+						case 'submit':
+							form.elements[i].value = r[n];
+							break;
+						case 'checkbox':
+						case 'radio':
+							if (r[n])
+								form.elements[i].checked = "checked";
+							else
+								form.elements[i].checked = "";
+							break;
+						case 'file':
+							break;
+					}
+					break;
+				case 'TEXTAREA':
+					form.elements[i].value = r[n];
+					break;
+				case 'SELECT':
+					switch (form.elements[i].type) {
+						case 'select-one':
+							for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+								if (form.elements[i].options[j].value == r[n])
+									form.elements[i].options[j].selected = "selected";
+								else
+									form.elements[i].options[j].selected = "";
+							}
+							break;
+						case 'select-multiple':
+							var d = r[n].split(",");
+							for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+								if (d.indexOf(form.elements[i].options[j].value) !== -1)
+									form.elements[i].options[j].selected = "selected";
+								else
+									form.elements[i].options[j].selected = "";
+								
+							}
+							break;
+					}
+					break;
+				case 'BUTTON':
+					switch (form.elements[i].type) {
+						case 'reset':
+						case 'submit':
+						case 'button':
+							form.elements[i].value = r[n];
+							break;
+						}
+					break;
+			}
+		}
+	}
+}
+
+

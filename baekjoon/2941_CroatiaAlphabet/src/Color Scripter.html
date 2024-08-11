@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://colorscripter.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Color Scripter</title>
+
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=1024">
+
+	<meta name="title" content="Color Scripter">
+	<meta name="subject" content="Syntax Highlighter">
+	<meta name="description" content="Color Scripter는 더 편리하고 유연한 Syntax HighLighter 입니다">
+	<meta name="keywords" content="Color Scripter, ColorScripter, Syntax HighLighter, 코드 하이라이터, 코드 예쁘게 올리기, 네이버 블로그용 Syntax HighLighter">
+
+	<meta property="og:title" content="Color Scripter">
+	<meta property="og:description" content="Simple &amp; Flexible Syntax HighLighter">
+	<meta property="og:image" content="https://colorscripter.com/static/images/screenshots/whole-site@2x.png">
+
+	<link rel="shortcut icon" href="https://colorscripter.com/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="./Color Scripter_files/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="./Color Scripter_files/colorscripter.css">
+	<link rel="stylesheet" type="text/css" href="./Color Scripter_files/coloreditor.css">
+	<link rel="stylesheet" type="text/css" href="./Color Scripter_files/global.css">
+	<link rel="stylesheet" type="text/css" href="./Color Scripter_files/main.css">
+
+	<script src="./Color Scripter_files/f(1).txt"></script><script type="text/javascript" async="" src="./Color Scripter_files/js"></script><script async="" src="./Color Scripter_files/analytics.js.다운로드"></script><script type="text/javascript" src="./Color Scripter_files/axios.min.js.다운로드"></script>
+	<script type="text/javascript" src="./Color Scripter_files/es6-promise.auto.min.js.다운로드"></script> 
+	<script type="text/javascript" src="./Color Scripter_files/colorscripter.js.다운로드"></script>
+	<script type="text/javascript" src="./Color Scripter_files/coloreditor.js.다운로드"></script>
+	<script type="text/javascript" src="./Color Scripter_files/shaman.js.다운로드" async=""></script>
+	<script type="text/javascript" src="./Color Scripter_files/lie.js.다운로드"></script>
+	<script type="text/javascript" src="./Color Scripter_files/placeholder.js.다운로드"></script>
+	<script type="text/javascript" src="./Color Scripter_files/utils.js.다운로드"></script>
+
+	<script type="text/javascript">
+		var EXTENDING_STORE_URL = "https://extends.colorscripter.com";
+
+		var apiClient = axios.create({
+			baseURL: "https://api.colorscripter.com/v2",
+			withCredentials: true
+		});
+	</script>
+	<script type="text/javascript" src="./Color Scripter_files/main.js.다운로드"></script>
+
+	<script type="text/javascript">
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-57656000-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<script>
+    (function(j,e,nn,i,fer) {
+        j['dmnaid']=fer;j['dmnatime']=new Date();j['dmnanocookie']=false;var a=e.createElement(nn);
+        a.async=true;a.src=i;e.getElementsByTagName(nn)[0].parentNode.appendChild(a);
+    }(window,document,'script','https://d-collect.jennifersoft.com/demian-b2.js','0219c243-8b71-1f8b-9404-ee688ace23f5'));
+	</script><script async="" src="./Color Scripter_files/demian-b2.js.다운로드"></script>
+
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9uiHDzQFAhqALUhTgTYJcz9XrGH2y0/9AORwCSapUO/f7Uh7ysIzyszNkuWDLqNYg8446Uj48XIstBW1qv/wAQAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3Mjc4MjcxOTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A9R+gkZL3TWq+Z7RJ2L0c7ZN7FZD5z4mHmVvjrPitg/EMz9P3j5d3W7Vw5ZR9jtJGmWKltM4BO3smNzpCgwYuwwAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3Mjc4MjcxOTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"></head>
+<body>
+	<div id="header" class="clearfix">
+		<a href="https://colorscripter.com/"><div id="logo" class="fl"><h1 class="hidden2">Color Scripter</h1></div></a>
+		<div id="subtitle" class="fl">Simple &amp; Flexible Syntax HighLighter</div>
+
+		<div id="login-info" class="fr logged">
+			<img src="./Color Scripter_files/unnamed.jpg" width="32" height="32">
+			<a href="https://account.colorscripter.com/#callback=http://colorscripter.com" class=" active">조홍균</a>
+		</div>
+		<ul id="gnb" class="fr clearfix">
+			<li><a href="https://colorscripter.com/info">Color Scripter 정보</a></li>
+			<li><a href="https://colorscripter.com/updates">업데이트 기록</a></li>
+			<li><a href="https://sponsor.colorscripter.com/">후원</a></li>
+		</ul>
+	</div>
+	<div id="bar" class="clearfix">
+		<div id="select-language-btn" class="common-btn select-btn fl" onclick="toggleMenuPopup(&#39;language&#39;, this)">
+			<span>언어:</span>&nbsp;<span id="selected-language-name" class="bold">자동(java)</span>
+		</div>
+		<div id="select-language-popup" class="popup" style="visibility: hidden; z-index: 11;">
+			<div class="top">
+				<input id="filter-input" class="beautiful-input-text" type="text" placeholder="검색" onkeyup="filterLanguageList(this.value)">
+			</div>
+			<ul>
+				<li id="language-auto-li" class="selected hovered" style="display: block;">자동(java)</li>
+				<li style="display: block;">Text</li>
+				<li style="display: block;">ActionScript</li>
+				<li style="display: block;">ASP</li>
+				<li style="display: block;">Bash</li>
+				<li style="display: block;">C</li>
+				<li style="display: block;">C#</li>
+				<li style="display: block;">CSS</li>
+				<li style="display: block;">HaXe</li>
+				<li style="display: block;">HTML</li>
+				<li style="display: block;">Java</li>
+				<li style="display: block;">JavaScript</li>
+				<li style="display: block;">JSP</li>
+				<li style="display: block;">MarkDown</li>
+				<li style="display: block;">Objective-C</li>
+				<li style="display: block;">Perl</li>
+				<li style="display: block;">PHP</li>
+				<li style="display: block;">Python</li>
+				<li style="display: block;">Ruby</li>
+				<li style="display: block;">SQL</li>
+				<li style="display: block;">Swift</li>
+				<li style="display: block;">VisualBasic</li>
+				<li style="display: block;">XML</li>
+			</ul>
+		</div>
+
+		<div id="select-stylepackage-btn" class="common-btn select-btn fl" onclick="toggleMenuPopup(&#39;stylepackage&#39;, this)">
+			<span>스타일패키지:</span>&nbsp;<span id="selected-stylepackage-name" class="bold">기본</span>
+		</div>
+
+		<div id="select-stylepackage-popup" class="popup" style="visibility: hidden;">
+			<div class="top clearfix">
+				<span>코드 하이라이트에 사용할 스타일패키지를 선택하세요</span>
+			</div>
+			<ul class="clearfix">
+				<li class="selected">
+					<h4>기본</h4>
+					<input type="hidden" name="package-name" value="default">
+					<div class="example-code"></div>
+				</li>
+				<li>
+					<h4>핑크 레몬에이드</h4>
+					<input type="hidden" name="package-name" value="pink-lemonade">
+					<div class="example-code"></div>
+				</li>
+				<li>
+					<h4>서브라임 블랙</h4>
+					<input type="hidden" name="package-name" value="sublime-black">
+					<div class="example-code"></div>
+				</li>
+			</ul>
+		</div>
+
+
+		<div id="select-bgtype-btn" class="common-btn select-btn fl" onclick="toggleMenuPopup(&#39;bgtype&#39;, this)">
+			<span>배경:</span>&nbsp;<span id="selected-bgtype-name" class="bold">단일색상</span>
+		</div>
+
+		<div id="select-bgtype-popup" class="popup" style="visibility: hidden;">
+			<ul>
+				<li class="selected">
+					단일색상
+					<input type="hidden" name="bgType" value="single">
+				</li>
+				<li>
+					이중색상(격배경)
+					<input type="hidden" name="bgType" value="multi">
+				</li>
+				<li>
+					배경없음 (투명)
+					<input type="hidden" name="bgType" value="none">
+				</li>
+			</ul>
+		</div>
+
+		<div id="setting-detail-btn" class="common-btn fl" onclick="toggleSettingDetailPopup(this)">
+			<i class="fa fa-cog" aria-hidden="true"></i>
+			<span>세부설정</span>
+		</div>
+
+		<div id="setting-detail-popup" class="center-popup" style="visibility: hidden; z-index: 13;">
+			<h3>세부설정</h3>
+			<form name="settingDetailForm">
+			<h4>스타일 관련</h4>
+			<ul>
+				<li>
+					<span class="w100">글꼴</span>
+					<input type="text" name="font" size="50" value="" style="width: 300px" isplaceholderinited="true">
+				</li>
+				<li>
+					<span class="w100">줄간격</span>
+					<input type="text" name="lineHeight" size="10" value="" isplaceholderinited="true">
+				</li>
+				<li>
+					<span class="w100">줄번호 복사</span>
+					<input type="checkbox" name="copyLineNumber">
+				</li>
+				<li>
+					<span class="w100">줄번호 시작숫자</span>
+					<input type="text" name="lineNumberStartNum" size="10" value="" isplaceholderinited="true">
+				</li>
+			</ul>
+
+			<h4>기타</h4>
+			<ul>
+				<li>
+					<span>반환 태그 종류 설정</span>
+					<select name="returnMode">
+						<option value="0">font 태그</option>
+						<option value="1">span 태그</option>
+						<option value="2">span 태그 (CSS)</option>
+					</select>
+				</li>
+				<li>
+					<input type="checkbox" name="convertingTabToSpace">
+					<span>탭을 공백4개로 변경</span>
+				</li>
+				<li>
+					<input type="checkbox" name="copyHtmlItSelf">
+					<span>HTML태그 자체 복사</span>
+				</li>
+				<li>
+					<input type="checkbox" name="restrictWidth">
+					<span>가로 크기 제한</span>
+					<span class="sub">(크기 초과시 자동 스크롤)</span>
+					<div>
+						└ 크기 : <input type="text" name="restrictWidthSize" size="4" isplaceholderinited="true">
+					</div>
+				</li>
+				<li>
+					<input type="checkbox" name="restrictHeight">
+					<span>세로 크기 제한</span>
+					<span class="sub">(크기 초과시 자동 스크롤)</span>
+					<div>
+						└ 크기 : <input type="text" name="restrictHeightSize" size="4" isplaceholderinited="true">
+					</div>
+				</li>
+			</ul>
+			</form>
+
+			<div class="clearfix">
+				<div class="common-btn fl" onclick="resetSettingDetail()">초기화</div>
+				<div class="common-btn fr" onclick="saveSettingDetail()">저장</div>
+				<div class="common-btn fr" onclick="cancelSettingDetail()">취소</div>
+			</div>
+		</div>
+
+
+		<div id="plugin-btn" class="common-btn fl" onclick="goExtendingStore()" style="margin-left:12px">
+			<i class="fa fa-plug"></i>
+			<span>확장스토어</span>
+		</div>
+
+		<div id="sponsor-connected" class="fl" style="margin-left:12px; display: none;">
+			<i class="fa fa-trophy"></i>
+			<span>후원회원</span>
+		</div>
+
+		<div id="realtime-toggle-wrap" class="fr">
+			<input id="realtime-toggle" type="checkbox">
+			<span>실시간 하이라이팅</span>
+		</div>
+
+		<div id="realtime-forbidden-msgbox" class="popup">
+			해당 브라우저는 실시간 하이라이팅 기능을 지원하지 않습니다.<br>
+			Chrome, Firefox, Safari 등의 최신 브라우저로 업그레이드 해주세요.
+		</div>
+	</div>
+
+	<!-- ColorEditor -->
+	<div id="editor" class="clearfix" style="height: 764px; font-family: Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace;"><div class="ColorEditor">			<div class="ce-wrap">				<div class="ce-linenumber">					<ol><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li><li>60</li><li>61</li><li>62</li><li>63</li><li>64</li><li>65</li><li>66</li><li>67</li><li>68</li><li>69</li><li>70</li><li>71</li><li>72</li><li>73</li><li>74</li><li>75</li></ol>				</div>				<div class="ce-text-area"><pre class="ce-code-text" contenteditable="true" spellcheck="false" style="width: 1188px; height: 743px; color: rgb(1, 1, 1); font-family: Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; line-height: 130%;"><div><span class="cs-default-common-keyword1">import</span> java.util.LinkedList;</div><div><span class="cs-default-common-keyword1">import</span> java.util.Queue;</div><div><span class="cs-default-common-keyword1">import</span> java.util.<span class="cs-default-common-keyword0">Scanner</span>;</div><div></div><div><span class="cs-default-common-keyword1">public</span> <span class="cs-default-common-keyword1">class</span> Main {</div><div>	<span class="cs-default-common-keyword1">static</span> Queue<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&lt;</span>Character<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&gt;</span> queue <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-keyword1">new</span> LinkedList<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&lt;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&gt;</span>();</div><div>	<span class="cs-default-common-keyword1">static</span> <span class="cs-default-common-keyword0">int</span> cnt <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-number">0</span>;</div><div></div><div>	<span class="cs-default-common-keyword1">public</span> <span class="cs-default-common-keyword1">static</span> <span class="cs-default-common-keyword1">void</span> main(<span class="cs-default-common-keyword0">String</span>[] args) {</div><div>		<span class="cs-default-common-keyword0">Scanner</span> sc <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-keyword1">new</span> <span class="cs-default-common-keyword0">Scanner</span>(<span class="cs-default-common-keyword0">System</span>.<span class="cs-default-common-keyword0">in</span>);</div><div>		<span class="cs-default-common-keyword0">String</span> words <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> sc.next(); <span class="cs-default-common-comment">// 단어 받아오기		</span></div><div>		</div><div>		<span class="cs-default-common-keyword1">for</span>(<span class="cs-default-common-keyword0">int</span> i <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-number">0</span>; i <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&lt;</span> words.<span class="cs-default-common-keyword0">length</span>(); i<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span>) {</div><div>			<span class="cs-default-common-keyword0">char</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> words.<span class="cs-default-common-keyword0">charAt</span>(i); <span class="cs-default-common-comment">// 알파벳 한 글자</span></div><div>			</div><div>			countCroatiaAlphabet(alphabet);</div><div>			<span class="cs-default-common-keyword1">if</span>(i <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> words.<span class="cs-default-common-keyword0">length</span>() <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">-</span> <span class="cs-default-common-number">1</span> <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span>queue.isEmpty()) { <span class="cs-default-common-comment">// 마지막에 c d l n s z가 왔을 때 처리</span></div><div>				queue.remove();</div><div>				cnt<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span>;</div><div>			}</div><div>		}</div><div>		</div><div>		<span class="cs-default-common-keyword0">System</span>.<span class="cs-default-common-keyword0">out</span>.<span class="cs-default-common-keyword0">println</span>(cnt);</div><div>	}</div><div>	</div><div>	</div><div>	</div><div>	<span class="cs-default-common-keyword1">static</span> <span class="cs-default-common-keyword1">void</span> countCroatiaAlphabet(<span class="cs-default-common-keyword0">char</span> alphabet) {		</div><div>		<span class="cs-default-common-keyword1">if</span>(queue.isEmpty()) {						</div><div>			<span class="cs-default-common-keyword1">if</span>(alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'c'</span>  <span class="cs-default-common-comment">// 크로아티아 알파벳의 가능성을 가진 알파벳들이 온 경우</span></div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'d'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'l'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'n'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'s'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'z'</span>) {</div><div></div><div>					queue.offer(alphabet); <span class="cs-default-common-comment">// 큐에 넣는다</span></div><div>				} <span class="cs-default-common-keyword1">else</span> {</div><div></div><div>					cnt<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span>; <span class="cs-default-common-comment">// 그냥 평범한 알파벳이 온 경우</span></div><div>				}			</div><div>		} <span class="cs-default-common-keyword1">else</span> <span class="cs-default-common-keyword1">if</span>(<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span>queue.isEmpty()) { <span class="cs-default-common-comment">// 큐가 비어있지 않으면</span></div><div>			<span class="cs-default-common-keyword0">char</span> before <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> queue.poll(); <span class="cs-default-common-comment">// 그 전에 있던 Croatiable Alphabet poll			</span></div><div>			<span class="cs-default-common-comment">// 얘네들이면</span></div><div>			<span class="cs-default-common-keyword1">if</span>(alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'='</span></div><div>				<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'-'</span></div><div>				<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">|</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'j'</span>) {</div><div>				</div><div>				<span class="cs-default-common-keyword1">if</span>(<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span>queue.isEmpty()) { <span class="cs-default-common-comment">// 쟤네들인데 큐가 비어있지않으면 dz= 경우 </span></div><div>					queue.remove();	<span class="cs-default-common-comment">// 하나 더 뽑아서 비워줌</span></div><div>				}				</div><div>								</div><div>				cnt<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span>; <span class="cs-default-common-comment">// 크로아티아 알파벳 1개 완성!				</span></div><div>			} <span class="cs-default-common-keyword1">else</span> <span class="cs-default-common-keyword1">if</span>(before <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'d'</span> <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'z'</span>) { </div><div>				queue.offer(before);</div><div>				queue.offer(alphabet);</div><div>			} <span class="cs-default-common-keyword1">else</span> <span class="cs-default-common-keyword1">if</span>(alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'c'</span></div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'d'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'l'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'n'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'s'</span> </div><div>					<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">&amp;</span> alphabet <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">!</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-string">'z'</span>){ <span class="cs-default-common-comment">// 크로아티아 알파벳이 아니었다!				</span></div><div></div><div>				cnt <span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">=</span> <span class="cs-default-common-number">2</span>; <span class="cs-default-common-comment">// 별개의 알파벳 2개 였다!</span></div><div>			} <span class="cs-default-common-keyword1">else</span> { <span class="cs-default-common-comment">// c d l n s z가 한 번 더 왔을 때</span></div><div></div><div>				cnt<span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span><span class="cs-default-common-keyword2"></span><span class="cs-default-common-keyword1">+</span>;</div><div>				queue.offer(alphabet); <span class="cs-default-common-comment">// 큐에 넣는다</span></div><div>			}</div><div>			</div><div>		} </div><div>	}</div><div></div><div>}</div><div></div></pre></div>			</div>		</div></div>
+
+	<div id="bottom-tools" class="clearfix">
+		<div class="fl common-btn" onclick="openSharingPopup()">
+			공유하기
+		</div>
+		<div id="copy-html-btn" class="fl common-btn">
+			HTML로 복사
+		</div>
+		<div id="copy-clipboard-btn" class="fl common-btn final">
+			클립보드에 복사
+		</div>
+
+		<div id="clipboard-alternativa-container"><embed src="/static/src/cb-alternativa.swf" id="clipboard-alternativa" name="clipboard-alternativa" width="103" height="27" align="middle" allowscriptaccess="sameDomain" play="true" loop="false" quality="high" bgcolor="#ffffff" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer"></div>
+	</div>
+
+	<div id="version">
+		<a href="https://colorscripter.com/privacy" target="_blank" style="padding-right: 10px">
+			<span>개인정보처리방침</span>
+		</a>
+		<a href="https://colorscripter.com/terms" target="_blank">
+			<span>이용약관</span>
+		</a>
+	</div>
+
+	<div id="copyright-infobox">
+		<!-- &copy; 2012-2019. 서비스 운영 비용은 모두 후원을 통해 충원되고 있습니다. -->
+		<!-- <a href="https://sponsor.colorscripter.com" target="_blank">자세히</a> -->
+	</div>
+
+	<div id="ad-box">
+		<script async="" src="./Color Scripter_files/f(2).txt"></script>
+		<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4476671104014830" data-ad-slot="6526108654" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_0_host" style="border: none; height: 90px; width: 728px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:728px;height:90px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="./Color Scripter_files/ads.html" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CJfx0ebe5YcDFRbKFgUdNUYK4Q" data-load-complete="true"></iframe></div></ins>
+		<!-- <script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		</script> -->
+	</div>
+
+	<div id="mask" style="visibility: hidden; z-index: 12;"></div>
+	<div id="message-box"></div>
+	<div id="copy-popup" class="center-popup">
+		<!-- 플래시가 없을때 -->
+		<div class="no-flash-message">
+			클립보드에 바로복사 기능(Adobe Flash 사용)이 지원되지 않는 브라우저입니다.<br>
+			HTML코드를 직접 복사해서 붙여넣어 사용해주세요.
+		</div>
+		<div>
+			<input type="text" id="copy-popup-text" isplaceholderinited="true">
+		</div>
+		<div class="clearfix">
+			<div class="common-btn fr" onclick="this.parentNode.parentNode.style.visibility=&#39;hidden&#39;">닫기</div>
+		</div>
+	</div>
+	<div id="sharing-popup" class="center-popup">
+		<h3>공유하기</h3>
+		<div id="sharing-popup-c1">
+			<form name="sharingForm" action="https://colorscripter.com/" method="POST">
+				<p>입력하신 소스코드가 서버에 업로드되며 URL 주소가 생성됩니다.</p>
+				<p>
+					생성된 URL 주소로 접속하면 입력하신 소스코드가 보여지며<br>
+					남들에게 URL주소를 공유하면서 소스코드를 공유할 수 있습니다.
+				</p>
+				<div>
+					<input class="beautiful-input-text" type="text" placeholder="저작자 이메일" name="email" value="">
+				</div>
+				<div>
+					<textarea class="beautiful-input-text" name="description" placeholder="코드 설명"></textarea>
+				</div>
+
+				<div class="clearfix">
+					<div class="common-btn fr" onclick="completeSharing()">업로드</div>
+					<div class="common-btn fr" onclick="cancelSharing()">취소</div>
+				</div>
+			</form>
+		</div>
+
+		<div id="sharing-popup-c2">
+			<p>
+				소스코드가 업로드되었습니다.<br>
+				아래 주소를 공유해 주세요.
+			</p>
+			<div style="text-align:center">
+				<input id="sharing-url-text" type="text" readonly="readonly" value="" isplaceholderinited="true"><br>
+				<a id="sharing-url-anchor" href="https://colorscripter.com/" target="_blank">접속하기</a>
+			</div>
+			<div class="clearfix">
+				<div class="common-btn fr" onclick="cancelSharing()">닫기</div>
+			</div>
+		</div>
+	</div>
+	<div id="welcome-popup" class="center-popup">
+		<!-- <span class="x-btn" onclick="closeWelcomePopup()">X</span>
+
+		<div style="height: 130px; width: 20px"></div>
+			<style type="text/css">
+				#welcome-popup{
+					background: #F5E2E2 url(/static/images/sponsor_popup.png) no-repeat;
+				}
+			</style>
+			<div style="padding-bottom: 15px">
+				<a class="view-detail" href="https://sponsor.colorscripter.com" target="_blank">자세히</a>
+				<br>
+				<span onclick="closeWelcomePopup(true)"
+					style="cursor: pointer; text-decoration: underline;">다시보지않기</span>
+			</div>
+		</div> -->
+	</div>
+
+
+	<!--[if lte IE 8]>
+	<script type="text/javascript">
+		alert("Internet Explorer 8 이하는 지원하지 않습니다. 최신 브라우저로 접속해 주세요");
+	</script>
+	<![endif]-->
+
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_1_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_1" name="aswift_1" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="./Color Scripter_files/ads(1).html" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><iframe src="./Color Scripter_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="./Color Scripter_files/zrt_lookup_fy2021.html" style="display: none;"></iframe></html>
