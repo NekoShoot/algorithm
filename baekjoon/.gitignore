@@ -3,6 +3,7 @@
 
 ### intellij ###
 .idea
+.iml
 
 ### Eclipse ###
 .metadata
