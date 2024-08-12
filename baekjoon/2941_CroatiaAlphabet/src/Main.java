@@ -15,7 +15,7 @@ public class Main {
 			
 			countCroatiaAlphabet(alphabet);
 			
-			if(i == words.length() - 1 && !queue.isEmpty()) { 
+			while(i == words.length() - 1 && !queue.isEmpty()) { 
 				queue.remove();
 				cnt++;
 			}
@@ -41,7 +41,8 @@ public class Main {
 					cnt++; // 그냥 평범한 알파벳이 온 경우
 				}			
 		} else if(!queue.isEmpty()) { // 큐가 비어있지 않으면
-			char before = queue.poll(); // 그 전에 있던 Croatiable Alphabet poll			
+			char before = queue.poll(); // 그 전에 있던 Croatiable Alphabet poll
+			cnt++;
 			// 얘네들이면
 			if(alphabet == '='
 				|| alphabet == '-'
@@ -52,10 +53,11 @@ public class Main {
 				}								
 				
 //				System.out.println("2번 증가하기전 cnt = " + cnt + "이고, 알파벳은 " + alphabet + "입니다.");
-				cnt++; // 크로아티아 알파벳 1개 완성!				
+				// 크로아티아 알파벳 1개 완성!				
 			} else if(before == 'd' && alphabet == 'z') { 
 				queue.offer(before);
 				queue.offer(alphabet);
+				cnt--;
 			} else if(alphabet != 'c'
 					&& alphabet != 'd' 
 					&& alphabet != 'l' 
@@ -63,10 +65,9 @@ public class Main {
 					&& alphabet != 's' 
 					&& alphabet != 'z'){ // 크로아티아 알파벳이 아니었다!				
 //				System.out.println("3번 증가하기전 cnt = " + cnt + "이고, 알파벳은 " + alphabet + "입니다.");
-				cnt += 2; // 별개의 알파벳 2개 였다!
+				cnt++; // 별개의 알파벳 2개 였다!
 			} else { // c d l n s z가 한 번 더 왔을 때
 //				System.out.println("4번 증가하기전 cnt = " + cnt + "이고, 알파벳은 " + alphabet + "입니다.");
-				cnt++;
 				queue.offer(alphabet); // 큐에 넣는다
 			}
 			
