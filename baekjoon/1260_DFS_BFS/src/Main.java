@@ -31,7 +31,6 @@ public class Main {
                 // 값이 작은 노드부터 방문
                 Collections.sort(nodes[cur]); // ArrayList도 List지..
                 for(int node : nodes[cur]) {
-                    System.out.println(node);
                     if(!visit[node]) {
                         visit[node] = true;
                         queue.offer(node); // visit이 false면 queue에 offer
@@ -40,6 +39,36 @@ public class Main {
             }
         }
     }
+
+    static void dfsPreorder(int V) {
+        // DFS
+        /*
+        너비 우선 탐색
+        전위 순회 VLR
+        재귀 사용
+        1. 루트 노드 방문
+        2. 작업 수행
+        3. 탐색 대상과 관계를 맺고 있는 대상들에 1~2 수행
+        4. 기저조건이 만족될 시 재귀 중단
+            - 리프 노드에 다다라서 더 탐색할 수 없을 때
+         */
+            int cur = V;
+            visit[V] = true;
+            sb.append(cur + " "); // Vertex
+
+            if(nodes[cur].size() > 0) { // 기저조건: 관계 노드가 없을 때
+                // 값이 작은 노드부터 방문
+                Collections.sort(nodes[cur]); // ArrayList도 List지..
+                for(int node : nodes[cur]) {
+                    if(!visit[node]) {
+                        visit[node] = true;
+                        dfsPreorder(node);
+                    }
+                }
+            }        
+
+    }
+
 
     public static void main(String[] args) throws IOException {
         System.setIn(new FileInputStream("./src/input.txt"));
@@ -54,8 +83,8 @@ public class Main {
         nodes = new ArrayList[N+1]; // graph 만들기
         visit = new boolean[N+1]; // visit 만들기
 
-        for(int i = 0; i < N; i++) {
-            nodes[i+1] = new ArrayList<>(); // 해당 index를 value로 가지는 노드와 관계를 가지는 노드들을 모을 예정
+        for(int i = 1; i <= N; i++) {
+            nodes[i] = new ArrayList<>(); // 해당 index를 value로 가지는 노드와 관계를 가지는 노드들을 모을 예정
         }
 
         // 간선 관계 넣기
@@ -67,25 +96,21 @@ public class Main {
             nodes[link].add(node);
         }
 
-        System.out.println(Arrays.deepToString(nodes));
+        // DFS
+        dfsPreorder(V);
+
+        sb.deleteCharAt(sb.length()-1);
+        sb.append("\n");
+
+        // visit 초기화
+        Arrays.fill(visit, false);
+
+        // BFS
         bfs(V);
+        sb.deleteCharAt(sb.length()-1);
 
         String result = sb.toString();
         System.out.println(result);
-
-
-
-        // DFS
-        /*
-        너비 우선 탐색
-        전위 순회 VLR
-        재귀 사용
-        1. 루트 노드 방문
-        2. 작업 수행
-        3. 탐색 대상과 관계를 맺고 있는 대상들에 1~2 수행
-        4. 기저조건이 만족될 시 재귀 중단
-         */
-
 
     }
 }
