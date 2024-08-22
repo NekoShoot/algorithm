@@ -17,7 +17,8 @@ public class Main {
 		cntArr[R] = cnt;
 		
 		// 2. 반복문으로 R과 관련된 모든 정점을 탐색한다(오름차순)
-		Collections.sort(V.get(R));
+		Collections.sort(V.get(R));	
+		
 		for(int vertex : V.get(R)) {
 			// 3. 그 중에서 방문하지 않은 곳을 재귀로 방문한다
 			if(visited[vertex] == false) dfs(cntArr, V, vertex);
@@ -53,7 +54,10 @@ public class Main {
 		
 		// 간선에 따른 관계 저장
 		for(int i = 0; i < M; i++) {
-			V.get(sc.nextInt()).add(sc.nextInt()); // get한 정점에 add 정점의 관계 생성
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			V.get(a).add(b); // get한 정점에 add 정점의 관계 생성
+			V.get(b).add(a); // 양방향 관계
 		}
 		
 		int[] cntArr = new int[N+1];
