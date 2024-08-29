@@ -66,12 +66,11 @@ public class Main {
 			// 2. 공기 청정기 작동
 			// 위쪽
 			int p = 0; // purifier
-			int ur = upper-1;
-			int uc = -1;
-			while(ur != upper && uc != 0) {
-				ur++; // 위쪽 공기청정기는 upper 행(row)에서 시작
-				uc++; 
-				
+			boolean flag = false;
+			int ur = upper;
+			int uc = 0;
+			while(ur != upper && uc != 0 && flag == false) {
+				flag = true;
 				// 델타 범위가 배열 범위 안이면
 				if(ur + pr[p] >= 0 && ur + pr[p] < R
 				&& uc + pc[p] >= 0 && uc + pc[p] < C) {
@@ -85,11 +84,11 @@ public class Main {
 			}
 			
 			p = 0; // 델타 인덱스 초기화
-			int lr = lower-1;
-			int lc = -1;
-			while(lr != lower && lc != 0) {
-				lr++;
-				lc++;
+			flag = false;
+			int lr = lower;
+			int lc = 0;
+			while(lr != lower && lc != 0 && flag == false) {
+				flag = true;
 				
 				// 델타 범위가 배열 범위 안이면
 				if(lr + pr[p] >= 0 && lr + pr[p] < R
