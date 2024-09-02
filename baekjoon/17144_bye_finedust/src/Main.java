@@ -15,7 +15,7 @@ public class Main {
 		int upper = -1;
 		int lower = -1;
 		
-		int[][] room = new int[R][C];
+		int[][] room = new int[R][C];		
 		for(int r = 0; r < R; r++) {
 			for(int c = 0; c < C; c++) {
 				room[r][c] = sc.nextInt(); // 미세먼지 측정!
@@ -27,18 +27,25 @@ public class Main {
 			}
 		}
 		
+		int[][] mirror = new int[R][C]; // 미세먼지 동시 확산을 위한 미러 룸	
+
+		
 		// 미세먼지 델타
 		// 상 우 하 좌
 		int[] dr = { -1, 0, 1, 0 };
 		int[] dc = { 0, 1, 0, -1 };
 		
 		// 공기 청정기 델타
-		// 우 하 좌 상
-		int[] pr = { 0, 1, 0, -1 };
-		int[] pc = { 1, 0, -1, 0 };
+		// 하 우 상 좌
+		int[] pr = { 1, 0, -1, 0 };
+		int[] pc = { 0, 1, 0, -1 };
 		
-		// T초 동안 진행
+		// T초 동안 진행 
 		for(int t = 1; t <= T; t++) {
+			for(int r = 0; r < R; r++) { // 미러링
+				mirror[r] = Arrays.copyOf(room[r], room[r].length);
+			}
+			
 			// 1. 미세먼지 확산
 			for(int r = 0; r < R; r++) {
 				for(int c = 0; c < C; c++) {
@@ -53,64 +60,87 @@ public class Main {
 						if(nr >= 0 && nr < R
 						&& nc >= 0 && nc < C
 						&& room[nr][nc] != -1) {
-							// 확산
-							room[nr][nc] += spread; 
-							room[r][c] -= spread;
+							// 확산(앞에 바뀐 것에 관계 없이 spread값이 원래의 값을 기준으로 정해짐)
+							mirror[nr][nc] += spread; 
+							mirror[r][c] -= spread;
 						}
-							
-					}
+						
+					} // 델타 배열
 										
+				} // c
+			} // r
+			
+			// 미러를 다시 진짜에 반영
+			for(int r = 0; r < R; r++) {
+				for(int c = 0; c < C; c++) {
+					room[r][c] = mirror[r][c];
 				}
 			}
 			
-			// 2. 공기 청정기 작동
+//			System.out.println("확산");
+//			for(int r = 0; r < R; r++) {
+//				System.out.println(Arrays.toString(room[r]));
+//			}
+			
+			// =============== clear ===============
+			
+			// 2. 공기 청정기 작동 TODO -1이 옮겨지는 거 같으니 그거 해결
 			// 위쪽
-			int p = 0; // purifier
-			boolean flag = false;
-			int ur = upper;
-			int uc = 0;
-			while(ur != upper && uc != 0 && flag == false) {
-				flag = true;
-				// 델타 범위가 배열 범위 안이면
-				if(ur + pr[p] >= 0 && ur + pr[p] < R
-				&& uc + pc[p] >= 0 && uc + pc[p] < C) {
-					int nr = ur + pr[p];
-					int nc = uc + pc[p];
-					
-					// 미세먼지 이동 (한 칸씩 미나 결국엔 전부 배열 범위 끝에 다 모임)
-					room[nr][nc] += room[ur][uc];
-					room[ur][uc] = 0;
-				} else p++;
-			}
+			// 바람은 1로 부는 것에서 시작하지만, 역방향 델타 탐색으로 구현
+			int p = 0; // 공기가 밀어낸 미세먼지들을 탐색할 델타
 			
-			p = 0; // 델타 인덱스 초기화
-			flag = false;
-			int lr = lower;
-			int lc = 0;
-			while(lr != lower && lc != 0 && flag == false) {
-				flag = true;
+			// 역방향으로 탐색하므로 상 -> 우 -> 하 -> 좌 순으로 탐색 <- 미세먼지 델타와 같음
+			int nr = upper - 1; // 공기청정기 위쪽 시작 row
+			int nc = 0; // 공기청정기 위쪽 시작 column			
+			
+			while(nr != upper || nc != 0) { // nr과 nc가 공기청정기 위쪽으로 돌아오면
+				// 범위 밖으로 나가면 p++
+				if(nr + dr[p] < 0 || nc + dc[p] > C-1 || nr+dr[p] > upper) p++;
+								
+				// 바로 이전 칸을 옮겨오기
+				if(room[nr + dr[p]][nc + dc[p]] != -1) room[nr][nc] = room[nr + dr[p]][nc + dc[p]];
+				else room[nr][nc] = 0;
 				
-				// 델타 범위가 배열 범위 안이면
-				if(lr + pr[p] >= 0 && lr + pr[p] < R
-				&& lc + pc[p] >= 0 && lc + pc[p] < C) {
-					// 반시계 방향
-					int nr = lr + pr[(p+3)%4];
-					int nc = lc + pc[(p+3)%4];
-					
-					// 미세먼지 이동 (한 칸씩 미나 결국엔 전부 배열 범위 끝에 다 모임)
-					room[nr][nc] += room[lr][lc];
-					room[lr][lc] = 0;
-				} else p++;				
-			}
+				nr += dr[p];
+				nc += dc[p];				
+			} // upper
 			
-			// 둘 다의 반복이 끝나면 (upper, 0)와 (lower, 0)에 미세먼지가 모여있음
-			// 청소!
-			System.out.println(Arrays.deepToString(room));
-			System.out.println(room[upper-1][0]);
-			System.out.println(room[lower+1][0]);
-			room[upper][0] = 0;
-			room[lower][0] = 0;
-		}
+//			System.out.println("공청 윗방향");
+//			for(int r = 0; r < R; r++) {
+//				System.out.println(Arrays.toString(room[r]));
+//			}
+			
+			
+			// ======= clear ==========
+			
+			// 아래쪽
+			p = 0;
+			
+			// 역방향 탐색하므로 하 -> 우 -> 상 -> 좌
+			int lr = lower + 1;
+			int lc = 0;
+			
+			while(lr != lower || lc != 0) { // nr과 nc가 공기청정기 위쪽으로 돌아오면
+				// 범위 밖으로 나가면 p++
+				if(lr + pr[p] > R-1 || lc + pc[p] > C-1 || lr+pr[p] < lower) p++;
+				
+				
+				// 바로 이전 칸을 옮겨오기
+				if(room[lr + pr[p]][lc + pc[p]] != -1) room[lr][lc] = room[lr + pr[p]][lc + pc[p]];
+				else room[lr][lc] = 0;
+				
+				lr += pr[p];
+				lc += pc[p];				
+			} // lower
+ 
+//			System.out.println("아랫방향");
+//			for(int r = 0; r < R; r++) {
+//				System.out.println(Arrays.toString(room[r]));
+//			}
+			
+			
+		} // t		
+		 
 		
 		// 집 안에 남은 미세먼지 총량 구하기
 		int sum = 0;
@@ -120,6 +150,6 @@ public class Main {
 			}
 		}
 		
-		System.out.println(sum);
+		System.out.println(sum + 2); // 공기청정기 값 빼주기
 	}
 }
