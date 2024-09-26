@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.*;
+
+public class Test {
+    static class Edge implements Comparable<Edge> {
+        int nodeA; // 나
+        int nodeB; // 너
+        int weight; // 가중치
+
+        public Edge(int nodeA, int nodeB, int weight) {
+            this.nodeA = nodeA;
+            this.nodeB = nodeB;
+            this.weight = weight;
+        }
+
+        // 가중치를 기준으로 정렬하기 위해
+        @Override
+        public int compareTo(Edge o) {
+            return Integer.compare(this.weight, o.weight);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        System.setIn(new FileInputStream("./src/input.txt"));
+        Scanner sc = new Scanner(System.in);
+
+        int V = sc.nextInt(); // 정점의 개수
+        int E = sc.nextInt(); // 간선의 개수
+
+        System.out.println("V= " + V +", " + "E= " + E);
+
+        // 인접 리스트로 관리
+        List<Edge>[] adjList = new ArrayList[V+1]; // 1번 노드부터 시작
+
+        for(int i = 1; i <= V; i++) {
+            adjList[i] = new ArrayList<>();
+        }
+
+        for(int i = 1; i <= E; i++) {
+
+            // 신장 그래프는 무방향 그래프임!
+            int nodeA = sc.nextInt(); // A 노드
+            int nodeB = sc.nextInt(); // B 노드
+            int weight = sc.nextInt(); // 가중치
+
+            System.out.println("A= " + nodeA + " B= " + nodeB + " weight= " + weight);
+
+            // 인접 리스트에 정보 저장(나, 너, 가중치)
+            Edge edgeA = new Edge(nodeA, nodeB, weight);
+            Edge edgeB = new Edge(nodeB, nodeA, weight);
+            adjList[nodeA].add(edgeA);
+            adjList[nodeB].add(edgeB);
+        }
+
+        PriorityQueue<Edge> pq = new PriorityQueue<>(); // 뽑은 간선의 가중치를 저장할 우선순위 큐
+        // 비트마스킹으로 방문 체크
+        int visited = 1 << 1; //
+        int ans = 0; // 정답 기록
+        int pick = 1; // 뽑은 노드 개수
+
+        pq.addAll(adjList[1]); // 1번 노드의 인접 노드를 전부 우선순위 큐에 넣음(가중치 기준 우선순위)
+        while(pick != V) { // V개의 노드를 전부 보면 끝
+            Edge e = pq.poll(); // 나(A)를 기준으로 가장 작은 가중치를 가진 간선 뽑아서 인접 노드(B) 확인하기
+            if((visited & (1 << e.nodeB)) != 0) continue; // 도착지가 이미 방문했던 노드라면 패스
+
+            // 방문한 적 없는 노드라면
+            ans += e.weight; // 스패닝 트리에 거리 추가 (Greedy 알고리즘이라 최소값만 뽑아도 됨)
+            visited |= (1 << e.nodeB); // B노드 방문 처리
+            pick++; // 뽑았다!
+
+            // 뽑은 노드의 인접 노드를 넣음(A의 남은 인접 노드들과 B의 인접 노드들 중 가중치 기준 우선순위 결정)
+            pq.addAll(adjList[e.nodeB]);
+        }
+
+        System.out.println(ans);
+
+        sc.close();
+    } // main
+}
