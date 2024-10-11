@@ -27,10 +27,10 @@ class UserSolution {
     void putCards(int mDir, int mNumbers[]) {
         switch (mDir) {
             case 0 ->  { // 왼쪽에 놓아야 하는 경우
-                for(int i = mNumbers.length-1; i >= 0 ; i--) {
-                    table[start-i] = mNumbers[i];
-                }
                 start -= mNumbers.length;
+                for(int i = 0; i < mNumbers.length; i++) {
+                    table[start+i] = mNumbers[i];
+                }
             }
             case 1 -> { // 오른쪽에 놓아야 하는 경우
                 for(int i = 0; i < mNumbers.length; i++) {
@@ -39,22 +39,26 @@ class UserSolution {
                 end += mNumbers.length;
             }
         }
+//        System.out.println("======= putCards ======");
+//        System.out.println(Arrays.toString(Arrays.copyOfRange(table, start, end)));
+//        System.out.println("======= putCards ======");
     }
 
     // 4개 카드 합 % 20 -> 1~19만 가능
     // mNum -> 기준 숫자(4개 합이 같아야 하는 목표 숫자)
     // 완탐 기준 최악의 경우 50005 * 4 * 50003번 돌아야 함
     int findNumber(int mNum, int mNth, int ret[]) {
+//        System.out.println("======= findNumber ======");
         adjSumIdx = new ArrayList<>();
 
         // 완탐
-        for(int i = start; i <= end - 3; i++) {
-
-            int curr = table[i] % 20;
+        for(int i = start; i < end - 3; i++) {
+            int curr = table[i];
             if(curr == -1) curr = joker;
+            curr %= 20;
 
             // 인접한 오른쪽 3장 더하기
-            for(int j = 1; j <= 3; j ++) {
+            for(int j = 1; j < 4; j ++) {
                 int next = table[i + j];
                 if(next == -1) next = joker;
                 curr += next % 20;
@@ -73,6 +77,7 @@ class UserSolution {
 //                System.out.println("mNum => " + mNum);
 //                System.out.println("mNth => " + mNth);
 //                System.out.println("start => " + table[idx]);
+//                System.out.println(Arrays.toString(Arrays.copyOfRange(table, start, end)));
 
 
                 for(int k = 0; k < ret.length; k++) {
@@ -80,9 +85,10 @@ class UserSolution {
                 }
 
 //                System.out.println("ret => " + Arrays.toString(ret));
-
+//                System.out.println("======= findNumber ======");
                 return 1;
             }
+
         } // 모든 카드 확인 끝
 
         return 0; // 조건에 맞는 카드를 찾을 수 없는 경우
