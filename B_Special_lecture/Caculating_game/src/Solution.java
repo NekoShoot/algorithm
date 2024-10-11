@@ -70,7 +70,7 @@ class Solution {
     public static void main(String[] args) throws Exception {
         int T, MARK;
 
-        // System.setIn(new java.io.FileInputStream("res/sample_input.txt"));
+         System.setIn(new java.io.FileInputStream("./src/input.txt"));
         br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer stinit = new StringTokenizer(br.readLine(), " ");
